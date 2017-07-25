@@ -1,18 +1,18 @@
 <div id="appBody" class="row">
 <div id="mainButton1" class="col-sm-6 col-md-6 col-lg-6">
 	<div class="btn-text" (click)='openForm1()'>Admin</div>
-	<form class="modal" #f = "ngForm" >
+	<form class="modal" #f = "ngForm" (ngSubmit) = "loginAdmin()">
 		<div class="close-button" (click)="closeForm1()">x</div>
 		<div class="form-title">Sign In</div>
 		<div class="input-group">
-			<input type="text" id="name" name = "username" [(ngModel)] ="username" (keyup)="checkInput1($event)" />
+			<input type="text" id="name" name = "username" [(ngModel)] ="model.username" #username= "ngModel" (keyup)="checkInput1($event)" />
 			<label htmlFor ="name">Username</label>
 		</div>
 		<div class="input-group">
-			<input type="password" name = "password" [(ngModel)] ="password" id="password" (keyup)="checkInput1($event)" />
+			<input type="password" name = "password" [(ngModel)] ="model.password" #password= "ngModel" id="password" (keyup)="checkInput1($event)" />
 			<label htmlFor ="password">Password</label>
 		</div>
-		<div class="form-button" (click) = "loginAdmin(f)">Go</div>
+		<button class="form-button" >Go</button>
 	</form>
 </div>
 <div id="mainButton2" class="col-sm-6 col-md-6 col-lg-6">

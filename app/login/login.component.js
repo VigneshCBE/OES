@@ -14,11 +14,10 @@ var login_service_1 = require("./login.service");
 var LoginComponent = (function () {
     function LoginComponent(_loginService) {
         this._loginService = _loginService;
+        this.model = {};
+        localStorage.removeItem("currentUser");
     }
     LoginComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._loginService.loginAdmin()
-            .subscribe(function (users) { return _this.users = users; });
     };
     LoginComponent.prototype.openForm1 = function () {
         document.getElementById('mainButton1').className = 'active';
@@ -32,8 +31,9 @@ var LoginComponent = (function () {
     LoginComponent.prototype.closeForm2 = function () {
         document.getElementById('mainButton2').className = '';
     };
-    LoginComponent.prototype.loginAdmin = function (value) {
-        console.log("something " + value.value);
+    LoginComponent.prototype.loginAdmin = function () {
+        this._loginService.loginAdmin(this.model.username, this.model.password)
+            .subscribe();
     };
     LoginComponent.prototype.checkInput1 = function (value) {
         if (value.target.value.length > 0) {

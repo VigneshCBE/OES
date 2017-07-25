@@ -12,16 +12,15 @@ export class LoginComponent {
 
     public users : ILogin;
 
-    username : string;
-    password : string;
+    model : any = {};
 
     constructor(private _loginService : LoginService) {
-
+        localStorage.removeItem("currentUser");
     }
 
+
     ngOnInit() : void {
-        this._loginService.loginAdmin()
-                        .subscribe(users => this.users = users);
+
     }
 
 
@@ -39,8 +38,9 @@ export class LoginComponent {
         document.getElementById('mainButton2').className = ''
     }
 
-    loginAdmin(value : NgForm): void {
-        console.log("something " + value.value);
+    loginAdmin(): void {
+        this._loginService.loginAdmin(this.model.username,this.model.password)
+                         .subscribe();
     }
 
     checkInput1(value: any): void {

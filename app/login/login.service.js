@@ -12,18 +12,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
+var router_1 = require("@angular/router");
+var CryptoJS = require("crypto-js");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 var LoginService = (function () {
-    function LoginService(_http) {
+    function LoginService(_http, _route) {
         this._http = _http;
+        this._route = _route;
         this._loginServiceUrl = "http://localhost:3000/users";
     }
-    LoginService.prototype.loginAdmin = function () {
+    LoginService.prototype.loginAdmin = function (username, password) {
+        var _this = this;
         return this._http.get(this._loginServiceUrl)
             .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('All ' + JSON.stringify(data)); })
+            .do(function (data) {
+            var users = data;
+            var encryptPwd = CryptoJS.AES.encrypt(password, "longlivetamil"); //from UI
+            var decryptPwd = CryptoJS.AES.decrypt(users[0].password, "longlivetamil"); // from service call
+            if (username == users[0].username) {
+                if (password == users[0].password) {
+                    localStorage.setItem("currentUser", users[0].username);
+                    _this._route.navigateByUrl('/admin');
+                }
+                else {
+                    alert("Password you have typed is wrong");
+                }
+            }
+            else {
+                alert("Userid does not exist");
+            }
+        })
             .catch(this.handleError);
     };
     LoginService.prototype.handleError = function (error) {
@@ -34,7 +54,7 @@ var LoginService = (function () {
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map
