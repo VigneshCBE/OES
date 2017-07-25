@@ -8,8 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var http_1 = require("@angular/http");
+var forms_1 = require("@angular/forms");
+var app_routing_1 = require("./app.routing");
 var app_component_1 = require("./app.component");
 var admin_component_1 = require("./admin/admin.component");
+var login_component_1 = require("./login/login.component");
+var login_service_1 = require("./login/login.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -18,12 +23,17 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [
-            platform_browser_1.BrowserModule
+            platform_browser_1.BrowserModule,
+            http_1.HttpModule,
+            forms_1.FormsModule,
+            app_routing_1.routing
         ],
         declarations: [
             app_component_1.AppComponent,
+            login_component_1.LoginComponent,
             admin_component_1.AdminComponent
         ],
+        providers: [login_service_1.LoginService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
