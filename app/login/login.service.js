@@ -14,6 +14,7 @@ var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 var router_1 = require("@angular/router");
 var CryptoJS = require("crypto-js");
+var CryptoJSON = require("crypto-json");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
@@ -29,6 +30,7 @@ var LoginService = (function () {
             .map(function (response) { return response.json(); })
             .do(function (data) {
             var users = data;
+            var decrypted = CryptoJSON.decrypt(data,)
             //let Pwd = CryptoJS.AES.encrypt(password,"longlivetamil");
             //  let encryptPwd = CryptoJS.AES.encrypt(password,"longlivetamil"); //from UI
             var decryptPwd = CryptoJS.AES.decrypt(users[0].password, "longlivetamil"); // from service call

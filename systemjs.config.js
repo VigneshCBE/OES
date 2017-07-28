@@ -25,7 +25,8 @@
 
       // other libraries
       'rxjs': 'npm:rxjs',
-      'crypto-js' : 'npm:crypto-js/crypto-js.js'
+      'crypto-js' : 'npm:crypto-js/crypto-js.js',
+      'crypto-jsonn' : 'npm:crypto-jsonn'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -37,6 +38,9 @@
         defaultExtension: 'js'
       },
       'crypto-js': {
+        defaultExtension: 'js'
+      },
+      'crypto-jsonn': {
         defaultExtension: 'js'
       }
     }
