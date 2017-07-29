@@ -13,6 +13,8 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 var router_1 = require("@angular/router");
+var CryptoJS = require("crypto-js");
+var CryptoJSON = require("crypto-json");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
@@ -28,10 +30,14 @@ var LoginService = (function () {
             .map(function (response) { return response.json(); })
             .do(function (data) {
             var users = data;
-            // let encryptPwd = CryptoJS.AES.encrypt(password,"longlivetamil"); //from UI
-            // let decryptPwd = CryptoJS.AES.decrypt(users[0].password, "longlivetamil") // from service call
+            var decrypted = CryptoJSON.decrypt(data,)
+            //let Pwd = CryptoJS.AES.encrypt(password,"longlivetamil");
+            //  let encryptPwd = CryptoJS.AES.encrypt(password,"longlivetamil"); //from UI
+            var decryptPwd = CryptoJS.AES.decrypt(users[0].password, "longlivetamil"); // from service call
+            var pwd = decryptPwd.toString();
+            console.log("Epwd  " + decryptPwd + " Dpwd ");
             if (username == users[0].username) {
-                if (password == users[0].password) {
+                if (password == decryptPwd) {
                     localStorage.setItem("currentUser", users[0].username);
                     _this._route.navigateByUrl('/admin');
                 }
